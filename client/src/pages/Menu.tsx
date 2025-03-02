@@ -6,6 +6,8 @@ const menuData = {
       name: "Grilled Octopus",
       description: "With smoked paprika and olive oil",
       price: "$18",
+      image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+      isSignature: true,
     },
     {
       name: "Beef Tartare",
@@ -18,6 +20,8 @@ const menuData = {
       name: "Duck Breast",
       description: "With cherry sauce and root vegetables",
       price: "$34",
+      image: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369",
+      isSignature: true,
     },
     {
       name: "Sea Bass",
@@ -30,6 +34,8 @@ const menuData = {
       name: "Chocolate Soufflé",
       description: "With vanilla ice cream",
       price: "$12",
+      image: "https://images.unsplash.com/photo-1579372786545-d24af60e4f47",
+      isSignature: true,
     },
     {
       name: "Crème Brûlée",
@@ -43,7 +49,7 @@ export default function Menu() {
   return (
     <main className="container py-24">
       <h1 className="text-4xl font-bold text-center mb-12">Our Menu</h1>
-      <div className="grid gap-8 max-w-3xl mx-auto">
+      <div className="grid gap-8 max-w-4xl mx-auto">
         <MenuSection title="Starters" items={menuData.starters} />
         <MenuSection title="Main Courses" items={menuData.mains} />
         <MenuSection title="Desserts" items={menuData.desserts} />
