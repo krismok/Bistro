@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { Link } from "wouter";
 
 interface Package {
   name: string;
@@ -38,7 +39,14 @@ export function PricingTable({ packages }: PricingTableProps) {
                 </li>
               ))}
             </ul>
-            <Button className="w-full mt-6">Book Now</Button>
+            <Button 
+              className="w-full mt-6" 
+              asChild
+            >
+              <Link href={`/contact?package=${encodeURIComponent(pkg.name)}`}>
+                Book Now
+              </Link>
+            </Button>
           </CardContent>
         </Card>
       ))}

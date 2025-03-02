@@ -15,16 +15,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 
 export function ContactForm() {
   const { toast } = useToast();
+  const [location] = useLocation();
+  const params = new URLSearchParams(location.split('?')[1]);
+  const selectedPackage = params.get('package');
+
   const form = useForm<InsertContact>({
     resolver: zodResolver(insertContactSchema),
     defaultValues: {
       name: "",
       email: "",
-      subject: "",
-      message: "",
+      subject: selectedPackage ? `Event Booking: ${selectedPackage}` : "",
+      message: selectedPackage ? 
+        `I'm interested in booking the ${selectedPackage} package.\n\nPreferred Date:\nNumber of Guests:\nSpecial Requests:` : "",
     },
   });
 
@@ -33,8 +39,10 @@ export function ContactForm() {
       apiRequest("POST", "/api/contact", data),
     onSuccess: () => {
       toast({
-        title: "Message sent",
-        description: "We'll get back to you soon!",
+        title: selectedPackage ? "Booking request sent" : "Message sent",
+        description: selectedPackage ? 
+          "We'll get back to you soon to confirm your event booking!" :
+          "We'll get back to you soon!",
       });
       form.reset();
     },
@@ -92,7 +100,10 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Message</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                <Textarea 
+                  {...field} 
+                  rows={8}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -103,7 +114,7 @@ export function ContactForm() {
           className="w-full"
           disabled={mutation.isPending}
         >
-          Send Message
+          {selectedPackage ? 'Submit Booking Request' : 'Send Message'}
         </Button>
       </form>
     </Form>
