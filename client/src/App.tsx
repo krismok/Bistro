@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Menu from "@/pages/Menu";
 import Events from "@/pages/Events";
 import Contact from "@/pages/Contact";
+import Reservation from "@/pages/Reservation";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/menu" component={Menu} />
       <Route path="/events" component={Events} />
       <Route path="/contact" component={Contact} />
+      <Route path="/reservation" component={Reservation} />
       <Route component={NotFound} />
     </Switch>
   );

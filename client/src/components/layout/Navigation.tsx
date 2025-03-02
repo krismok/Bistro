@@ -12,6 +12,7 @@ export function Navigation() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/menu", label: "Menu" },
+    { href: "/reservation", label: "Book Now" },
     { href: "/events", label: "Events" },
     { href: "/contact", label: "Contact" },
   ];
