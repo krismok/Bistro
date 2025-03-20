@@ -10,18 +10,18 @@ export function Navigation() {
   const [location] = useLocation();
 
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/menu", label: "Menu" },
-    { href: "/reservation", label: "Book Now" },
-    { href: "/events", label: "Events" },
-    { href: "/contact", label: "Contact" },
+    { href: "/Bistro/home", label: "Home" },
+    { href: "/Bistro/menu", label: "Menu" },
+    { href: "/Bistro/reservation", label: "Book Now" },
+    { href: "/Bistro/events", label: "Events" },
+    { href: "/Bistro/contact", label: "Contact" },
   ];
 
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 border-b">
       <nav className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
-          <Link href="/">
+          <Link href="/Bistro/home">
             <a className="mr-6 flex items-center space-x-2">
               <span className="text-2xl font-bold">Bistro</span>
             </a>

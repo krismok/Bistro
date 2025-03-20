@@ -1,4 +1,4 @@
-import { Router, Route, Switch, useLocation } from "wouter";
+import { Router, Route, Switch, useLocation, Redirect } from "wouter";
 import Home from "@/pages/Home";
 import Menu from "@/pages/Menu";
 import Events from "@/pages/Events";
@@ -11,7 +11,8 @@ function AppRoutes() {
 
   return (
     <Switch location={location}>
-      <Route path="/Bistro" component={Home} />
+      <Route path="/Bistro" component={() => <Redirect to="/Bistro/home" />} />
+      <Route path="/Bistro/home" component={Home} />
       <Route path="/Bistro/menu" component={Menu} />
       <Route path="/Bistro/events" component={Events} />
       <Route path="/Bistro/contact" component={Contact} />
