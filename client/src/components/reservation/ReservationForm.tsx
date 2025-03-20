@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { insertReservationSchema, type InsertReservation } from "@shared/schema";
+import { insertReservationSchema, type InsertReservation, timeSlots } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar";
@@ -42,18 +42,23 @@ export function ReservationForm() {
     },
   });
 
-  // const { data: availableSlots = [] } = useQuery({
-  //   queryKey: ["/api/reservations/available-slots", selectedDate?.toISOString()],
-  //   enabled: !!selectedDate,
-  // });
-  const timeSlots = Array.from({ length: 24 }, (_, i) => {
-    const hour = Math.floor(i / 2) + 10; // Starts from 10:00 AM
-    const minute = i % 2 === 0 ? "00" : "30";
-    const formattedTime = `${hour.toString().padStart(2, "0")}:${minute}`;
-  
-    return { value: formattedTime, label: formattedTime };
-  })
+  const { data: availableSlots = [] } = useQuery({
+    queryKey: ["/api/reservations/available-slots", selectedDate?.toISOString()],
+    enabled: !!selectedDate,
+  });
 
+  const mutation = useMutation({
+    mutationFn: (data: InsertReservation) =>
+      apiRequest("POST", "/api/reservations", data),
+    onSuccess: () => {
+      toast({
+        title: "Reservation confirmed",
+        description: "We look forward to seeing you!",
+      });
+      form.reset();
+      setSelectedDate(undefined);
+    },
+  });
   const onSubmit = (data: InsertReservation) => {
     if (!selectedDate) return;
     mutation.mutate({
@@ -61,6 +66,14 @@ export function ReservationForm() {
       date: selectedDate,
     });
   };
+
+  const timeSlots = Array.from({ length: 24 }, (_, i) => {
+    const hour = Math.floor(i / 2) + 10; // Starts from 10:00 AM
+    const minute = i % 2 === 0 ? "00" : "30";
+    const formattedTime = `${hour.toString().padStart(2, "0")}:${minute}`;
+  
+    return { value: formattedTime, label: formattedTime };
+  })
 
   return (
     <Card className="w-full max-w-lg mx-auto">
@@ -97,18 +110,18 @@ export function ReservationForm() {
                         <SelectValue placeholder="Select a time" />
                       </SelectTrigger>
                     </FormControl>
-                    <Select
+                    {/* <Select
                       options={timeSlots}
                       placeholder="Select time slots..."
                       className="w-full"
-                    />
-                    {/* <SelectContent>
-                      {availableSlots.map((slot) => (
+                    /> */}
+                    <SelectContent>
+                      {timeSlots.map((slot: any) => (
                         <SelectItem key={slot} value={slot}>
                           {slot}
                         </SelectItem>
                       ))}
-                    </SelectContent> */}
+                    </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
