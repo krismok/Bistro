@@ -2,7 +2,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export function Story() {
   return (
-    <section className="py-24 bg-muted">
+    <section className="mx-auto max-w-6xl px-4 md:px-8 bg-muted">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
