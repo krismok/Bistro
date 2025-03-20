@@ -7,7 +7,6 @@ import { insertReservationSchema, type InsertReservation, timeSlots } from "@sha
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar";
-import Select from "react-select";
 import {
   Form,
   FormControl,
@@ -101,7 +100,6 @@ export function ReservationForm() {
                 <FormItem>
                   <FormLabel>Time</FormLabel>
                   <Select
-                    //disabled={!selectedDate || availableSlots.length === 0}
                     onValueChange={field.onChange}
                     value={field.value}
                   >
@@ -110,15 +108,10 @@ export function ReservationForm() {
                         <SelectValue placeholder="Select a time" />
                       </SelectTrigger>
                     </FormControl>
-                    {/* <Select
-                      options={timeSlots}
-                      placeholder="Select time slots..."
-                      className="w-full"
-                    /> */}
                     <SelectContent>
-                      {timeSlots.map((slot: any) => (
-                        <SelectItem key={slot} value={slot}>
-                          {slot}
+                      {timeSlots.map((slot) => (
+                        <SelectItem key={slot.value} value={slot.value}>
+                          {slot.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

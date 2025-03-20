@@ -51,6 +51,13 @@ export const insertReservationSchema = createInsertSchema(reservations).omit({
   id: true,
   status: true,
   createdAt: true,
+}).extend({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email format"),
+  phone: z.string().min(10, "Phone number must be at least 10 digits"),
+  pax: z.number().min(1, "Must have at least 1 guest").max(10, "Max 10 guests"),
+  time: z.string().nonempty("Time is required"),
+  date: z.date().refine((val) => val >= new Date(), "Date cannot be in the past"),
 });
 
 export type InsertWaitlist = z.infer<typeof insertWaitlistSchema>;

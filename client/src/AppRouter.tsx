@@ -17,6 +17,7 @@ function AppRoutes() {
 
   return (
     <Switch location={location}>
+      <Route path="/" component={() => <Redirect to="/Bistro/home" />} />
       <Route path="/Bistro" component={() => <Redirect to="/Bistro/home" />} />
       <Route path="/Bistro/home" component={Home} />
       <Route path="/Bistro/menu" component={Menu} />

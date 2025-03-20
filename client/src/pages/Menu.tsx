@@ -1,4 +1,5 @@
 import { MenuSection } from "@/components/menu/MenuSection";
+import bruleeImg from "@/assets/img/brulee_img.jpg";
 
 const menuData = {
   starters: [
@@ -34,7 +35,7 @@ const menuData = {
       name: "Crème Brûlée",
       description: "Classic vanilla bean custard",
       price: "$12",
-      image: "/img/brulee_img.jpg",
+      image: bruleeImg,
       isSignature: true,
     },
     {
