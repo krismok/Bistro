@@ -11,11 +11,11 @@ function AppRoutes() {
 
   return (
     <Switch location={location}>
-      <Route path="/" component={Home} />
-      <Route path="/menu" component={Menu} />
-      <Route path="/events" component={Events} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/reservation" component={Reservation} />
+      <Route path="/Bistro" component={Home} />
+      <Route path="/Bistro/menu" component={Menu} />
+      <Route path="/Bistro/events" component={Events} />
+      <Route path="/Bistro/contact" component={Contact} />
+      <Route path="/Bistro/reservation" component={Reservation} />
       <Route component={NotFound} />
     </Switch>
   );
