@@ -8,7 +8,7 @@ import NotFound from "@/pages/not-found";
 
 function AppRoutes() {
   const [location] = useLocation(); // Hook to detect location
-
+  //fix routes
   return (
     <Switch location={location}>
       <Route path="/Bistro" component={() => <Redirect to="/Bistro/home" />} />
