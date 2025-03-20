@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { insertReservationSchema, type InsertReservation, timeSlots } from "@shared/schema";
+import { insertReservationSchema, type InsertReservation } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar";
@@ -46,54 +46,13 @@ export function ReservationForm() {
   //   queryKey: ["/api/reservations/available-slots", selectedDate?.toISOString()],
   //   enabled: !!selectedDate,
   // });
-
-  const generateTimeSlots = () => {
-    const slots = [];
-    let hour = 9;
-    let minute = 0;
+  const timeSlots = Array.from({ length: 24 }, (_, i) => {
+    const hour = Math.floor(i / 2) + 10; // Starts from 10:00 AM
+    const minute = i % 2 === 0 ? "00" : "30";
+    const formattedTime = `${hour.toString().padStart(2, "0")}:${minute}`;
   
-    while (hour < 19 || (hour === 19 && minute === 0)) {
-      const time = `${hour}:${minute === 0 ? "00" : "30"} ${hour < 12 ? "AM" : "PM"}`;
-      slots.push({ value: time, label: time });
-  
-      // Increment by 30 minutes
-      if (minute === 0) {
-        minute = 30;
-      } else {
-        minute = 0;
-        hour++;
-      }
-    }
-    return slots;
-  };
-
-  function TimeSlotSelector({ selectedSlots, setSelectedSlots }) {
-    const timeSlots = generateTimeSlots();
-  
-    return (
-      <Select
-        options={timeSlots}
-        isMulti
-        value={selectedSlots}
-        onChange={setSelectedSlots}
-        placeholder="Select time slots..."
-        className="w-full"
-      />
-    );
-  }
-
-  const mutation = useMutation({
-    mutationFn: (data: InsertReservation) =>
-      apiRequest("POST", "/api/reservations", data),
-    onSuccess: () => {
-      toast({
-        title: "Reservation confirmed",
-        description: "We look forward to seeing you!",
-      });
-      form.reset();
-      setSelectedDate(undefined);
-    },
-  });
+    return { value: formattedTime, label: formattedTime };
+  })
 
   const onSubmit = (data: InsertReservation) => {
     if (!selectedDate) return;
@@ -138,7 +97,11 @@ export function ReservationForm() {
                         <SelectValue placeholder="Select a time" />
                       </SelectTrigger>
                     </FormControl>
-                    <TimeSlotSelector selectedSlots={selectedSlots} setSelectedSlots={setSelectedSlots} />
+                    <Select
+                      options={timeSlots}
+                      placeholder="Select time slots..."
+                      className="w-full"
+                    />
                     {/* <SelectContent>
                       {availableSlots.map((slot) => (
                         <SelectItem key={slot} value={slot}>
