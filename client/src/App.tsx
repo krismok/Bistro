@@ -1,9 +1,4 @@
-import { Switch, Route, useLocation } from "wouter";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient";
-import { Toaster } from "@/components/ui/toaster";
-import { Navigation } from "@/components/layout/Navigation";
-import { Footer } from "@/components/layout/Footer";
+import { Router, Route, Switch, useLocation } from "wouter";
 import Home from "@/pages/Home";
 import Menu from "@/pages/Menu";
 import Events from "@/pages/Events";
@@ -11,11 +6,11 @@ import Contact from "@/pages/Contact";
 import Reservation from "@/pages/Reservation";
 import NotFound from "@/pages/not-found";
 
-function Router() {
+function AppRoutes() {
   const [location] = useLocation(); // Hook to detect location
 
   return (
-    <Switch location={location} base="/Bistro">
+    <Switch location={location}>
       <Route path="/" component={Home} />
       <Route path="/menu" component={Menu} />
       <Route path="/events" component={Events} />
@@ -26,19 +21,10 @@ function Router() {
   );
 }
 
-function App() {
+export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col">
-        <Navigation />
-        <div className="flex-grow pt-16">
-          <Router />
-        </div>
-        <Footer />
-      </div>
-      <Toaster />
-    </QueryClientProvider>
+    <Router base="/Bistro">
+      <AppRoutes />
+    </Router>
   );
 }
-
-export default App;
