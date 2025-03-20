@@ -7,6 +7,7 @@ import { insertReservationSchema, type InsertReservation, timeSlots } from "@sha
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar } from "@/components/ui/calendar";
+import Select from "react-select";
 import {
   Form,
   FormControl,
@@ -29,6 +30,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export function ReservationForm() {
   const { toast } = useToast();
   const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedSlots, setSelectedSlots] = useState([]);
 
   const form = useForm<InsertReservation>({
     resolver: zodResolver(insertReservationSchema),
@@ -40,10 +42,45 @@ export function ReservationForm() {
     },
   });
 
-  const { data: availableSlots = [] } = useQuery({
-    queryKey: ["/api/reservations/available-slots", selectedDate?.toISOString()],
-    enabled: !!selectedDate,
-  });
+  // const { data: availableSlots = [] } = useQuery({
+  //   queryKey: ["/api/reservations/available-slots", selectedDate?.toISOString()],
+  //   enabled: !!selectedDate,
+  // });
+
+  const generateTimeSlots = () => {
+    const slots = [];
+    let hour = 9;
+    let minute = 0;
+  
+    while (hour < 19 || (hour === 19 && minute === 0)) {
+      const time = `${hour}:${minute === 0 ? "00" : "30"} ${hour < 12 ? "AM" : "PM"}`;
+      slots.push({ value: time, label: time });
+  
+      // Increment by 30 minutes
+      if (minute === 0) {
+        minute = 30;
+      } else {
+        minute = 0;
+        hour++;
+      }
+    }
+    return slots;
+  };
+
+  function TimeSlotSelector({ selectedSlots, setSelectedSlots }) {
+    const timeSlots = generateTimeSlots();
+  
+    return (
+      <Select
+        options={timeSlots}
+        isMulti
+        value={selectedSlots}
+        onChange={setSelectedSlots}
+        placeholder="Select time slots..."
+        className="w-full"
+      />
+    );
+  }
 
   const mutation = useMutation({
     mutationFn: (data: InsertReservation) =>
@@ -101,13 +138,14 @@ export function ReservationForm() {
                         <SelectValue placeholder="Select a time" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <TimeSlotSelector selectedSlots={selectedSlots} setSelectedSlots={setSelectedSlots} />
+                    {/* <SelectContent>
                       {availableSlots.map((slot) => (
                         <SelectItem key={slot} value={slot}>
                           {slot}
                         </SelectItem>
                       ))}
-                    </SelectContent>
+                    </SelectContent> */}
                   </Select>
                   <FormMessage />
                 </FormItem>
