@@ -92,7 +92,7 @@ export function ReservationForm() {
                 <FormItem>
                   <FormLabel>Time</FormLabel>
                   <Select
-                    disabled={!selectedDate || availableSlots.length === 0}
+                    //disabled={!selectedDate || availableSlots.length === 0}
                     onValueChange={field.onChange}
                     value={field.value}
                   >
