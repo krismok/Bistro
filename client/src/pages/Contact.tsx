@@ -3,7 +3,7 @@ import { Map } from "@/components/contact/Map";
 
 export default function Contact() {
   return (
-    <main className="container px-4 md:px-8 py-24">
+    <main className="container mx-auto max-w-6xl px-4 md:px-8 py-24">
       <h1 className="text-4xl font-bold text-center mb-12">Contact Us</h1>
       
       <div className="grid md:grid-cols-2 gap-12">

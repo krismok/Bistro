@@ -47,7 +47,7 @@ const menuData = {
 
 export default function Menu() {
   return (
-    <main className="container py-24">
+    <main className="container mx-auto max-w-6xl px-4 md:px-8 py-24">
       <h1 className="text-4xl font-bold text-center mb-12">Our Menu</h1>
       <div className="grid gap-8 max-w-4xl mx-auto">
         <MenuSection title="Starters" items={menuData.starters} />
