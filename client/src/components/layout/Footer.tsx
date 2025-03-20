@@ -5,7 +5,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react";
 export function Footer() {
   return (
     <footer className="bg-muted py-12">
-      <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4 mx-auto max-w-6xl px-4 md:px-8"> 
+      <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4 mx-auto max-w-screen-xl px-4 md:px-8"> 
         <div>
           <h3 className="text-lg font-semibold mb-4">Bistro</h3>
           <p className="text-muted-foreground">
