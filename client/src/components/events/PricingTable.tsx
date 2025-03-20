@@ -43,7 +43,7 @@ export function PricingTable({ packages }: PricingTableProps) {
               className="w-full mt-6" 
               asChild
             >
-              <Link href={`/contact?package=${encodeURIComponent(pkg.name)}`}>
+              <Link href={`/Bistro/contact?package=${encodeURIComponent(pkg.name)}`}>
                 Book Now
               </Link>
             </Button>

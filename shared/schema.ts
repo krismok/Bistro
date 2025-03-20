@@ -40,6 +40,11 @@ export const insertWaitlistSchema = createInsertSchema(waitlist).omit({
 export const insertContactSchema = createInsertSchema(contact).omit({
   id: true,
   createdAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 export const insertReservationSchema = createInsertSchema(reservations).omit({

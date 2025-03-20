@@ -31,15 +31,15 @@ const menuData = {
   ],
   desserts: [
     {
-      name: "Chocolate Soufflé",
-      description: "With vanilla ice cream",
+      name: "Crème Brûlée",
+      description: "Classic vanilla bean custard",
       price: "$12",
-      image: "https://images.unsplash.com/photo-1579372786545-d24af60e4f47",
+      image: "/img/brulee_img.jpg",
       isSignature: true,
     },
     {
-      name: "Crème Brûlée",
-      description: "Classic vanilla bean custard",
+      name: "Chocolate Soufflé",
+      description: "With vanilla ice cream",
       price: "$10",
     },
   ],

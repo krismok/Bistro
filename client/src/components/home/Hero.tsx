@@ -22,10 +22,10 @@ export function Hero() {
         </p>
         <div className="flex gap-4 justify-center">
           <Button asChild size="lg">
-            <Link href="/menu">View Menu</Link>
+            <Link href="/Bistro/menu">View Menu</Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link href="/contact">Make a Reservation</Link>
+            <Link href="/Bistro/contact">Make a Reservation</Link>
           </Button>
         </div>
       </div>
