@@ -7,8 +7,14 @@ import Reservation from "@/pages/Reservation";
 import NotFound from "@/pages/not-found";
 
 function AppRoutes() {
-  const [location] = useLocation(); // Hook to detect location
-  //fix routes
+  const [location, setLocation] = useLocation(); // Hook to detect location
+  
+    // Redirect "/" to "/home"
+    if (location === "/Bistro") {
+      setLocation("/Bistro/home");
+      return null;
+    }
+
   return (
     <Switch location={location}>
       <Route path="/Bistro" component={() => <Redirect to="/Bistro/home" />} />
@@ -23,9 +29,5 @@ function AppRoutes() {
 }
 
 export default function AppRouter() {
-  return (
-    <Router base="/Bistro">
-      <AppRoutes />
-    </Router>
-  );
+  return <AppRoutes />;
 }
